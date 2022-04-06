@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public interface appInterface {
 
@@ -8,14 +8,14 @@ public interface appInterface {
 
     void enrolledStudent (int id , int code);                            //this method add a new student into a course
 
-    ArrayList<student> getStudentsList (int code);                       //this method returns an ArrayList containing all the students in a course
+    List<student> getStudentsList (int code);                            //this method returns a List containing all the students in a course
 
     void cancelEnrollment (int id, int code);                            //this method removes a student of the course
 
     void restartCourse(int code);                                        //this method restart the students list of a course
 
-    ArrayList<student> getStudents ();                                   //this method returns an ArrayList of all the students on the system
+    List <student> getStudents ();                                       //this method returns a List of all the students on the system
 
-    ArrayList<course> getCourse ();                                      //this method returns an ArrayList of All the courses on the system
+    List<course> getCourse ();                                           //this method returns a List of All the courses on the system
 
 }

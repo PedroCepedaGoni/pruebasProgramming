@@ -1,11 +1,11 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import java.util.*;
 public class course {
 
     private int code;
     private String name;
     private String coordinator;
-    private ArrayList <student> studentsMap;
+    private List <student> studentsMap;
 
     public course(int code, String name, String coordinator) {
         this.code = code;
@@ -26,7 +26,7 @@ public class course {
         return coordinator;
     }
 
-    public ArrayList< student> getStudentsArray() {
+    public List< student> getStudentsArray() {
         return studentsMap;
     }
 
@@ -42,7 +42,7 @@ public class course {
         this.coordinator = coordinator;
     }
 
-    public void setStudentsArray(ArrayList< student> studentsMap) {
+    public void setStudentsArray(List< student> studentsMap) {
         this.studentsMap = studentsMap;
     }
 }

@@ -29,7 +29,7 @@ public class main {
 
     public void enrolledStudent (int id , int code){
         if (courseMap.containsKey(code) && studentMap.containsKey(id)){
-            ArrayList <student> auxMap = courseMap.get(code).getStudentsArray();
+            List <student> auxMap = courseMap.get(code).getStudentsArray();
             if(auxMap.size()<=50 ){
                 student studentAux = studentMap.get(id);
                 if (!auxMap.contains(studentAux)) {
@@ -49,10 +49,11 @@ public class main {
         }
     }
 
-    public ArrayList<student> getStudentsList (int code){
-        ArrayList <student> listAux = new ArrayList<student>();
+    public List<student> getStudentsList (int code){
+        List <student> listAux = new ArrayList<student>();
         if(courseMap.containsKey(code)){
-            listAux = courseMap.get(code).getStudentsArray();
+            listAux = sortList(courseMap.get(code).getStudentsArray());
+
         }else{
             throw new RuntimeException("the course its not registered ");
         }
@@ -62,7 +63,7 @@ public class main {
     public void cancelEnrollment (int id, int code){
         if (courseMap.containsKey(code) && studentMap.containsKey(id)
                 &&!courseMap.get(code).getStudentsArray().contains(studentMap.get(id))) {
-            ArrayList <student> auxMap = courseMap.get(code).getStudentsArray();
+            List <student> auxMap = courseMap.get(code).getStudentsArray();
             auxMap.remove(studentMap.get(id));
             courseMap.get(code).setStudentsArray(auxMap);
         }
@@ -80,15 +81,15 @@ public class main {
         }
     }
 
-    public ArrayList<student> getStudents (){
+    public List<student> getStudents (){
         HashMap<Integer,student> AuxMap = this.studentMap;
-        ArrayList<student> auxiliar = shortHashMap(AuxMap);
+        List <student> auxiliar = shortHashMap(AuxMap);
         return auxiliar;
     }
 
-    public ArrayList<course> getCourse (){
+    public List<course> getCourse (){
         HashMap<Integer,course> AuxMap = this.courseMap;
-        ArrayList<course> auxiliar = shortHashMap(AuxMap);
+        List<course> auxiliar = shortHashMap(AuxMap);
         return auxiliar;
     }
 
@@ -106,33 +107,41 @@ public class main {
     return auxiliar;
     }
 
-    private  ArrayList <student> shortArrayList(ArrayList<student> aux ){
-        ArrayList<student> auxiliar = new ArrayList<student>();
-        int [] auxiliarStudentArray = new int[aux.size()];
 
-        for (int i = 0; i< aux.size();i++){
-            auxiliarStudentArray[i] = aux.get(i).getId();
-        }
-        int temp;
-        for (int i = 1; i < auxiliarStudentArray.length; i++) {
+    private  static List <student> sortList(List<student> aux ) {
+        List <student> listAuxParam = aux;
+        student temp ;
+        for (int i = 1; i < listAuxParam.size(); i++) {
             for (int j = i; j > 0; j--) {
-                if (auxiliarStudentArray[j] < auxiliarStudentArray [j - 1]) {
-                    temp = auxiliarStudentArray[j];
-                    auxiliarStudentArray[j] = auxiliarStudentArray[j - 1];
-                    auxiliarStudentArray[j - 1] = temp;
+                if (listAuxParam.get(j).getId() < listAuxParam.get(j-1).getId()) {
+                    temp = listAuxParam.get(j);
+                    listAuxParam.set(j,listAuxParam.get(j-1));
+                    listAuxParam.set(j-1,temp);
                 }
             }
         }
-        for(int i = 0;i < auxiliarStudentArray.length;i++){
-            auxiliar.add(studentMap.get(auxiliarStudentArray[i]));
-        }
-
-        return auxiliar;
-
+        return listAuxParam;
     }
 
 
     public static void main(String[] args) {
+        List <student> auxiliar = new ArrayList<student>();
+        List <student> auxiliarResultado;
+        student temp = new student(0,"","");
+        student temp2 = new student(2,"","");
+        student temp3 = new student(5,"","");
+        student temp4 = new student(1,"","");
+        auxiliar.add(temp);
+        auxiliar.add(temp2);
+        auxiliar.add(temp3);
+        auxiliar.add(temp4);
+
+        auxiliarResultado = sortList(auxiliar);
+
+
+        for (student student : auxiliarResultado) {
+            System.out.print(student.getId());
+        }
 
     }
 }
